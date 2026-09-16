@@ -1,0 +1,16 @@
+FROM dunglas/frankenphp:1-php8.4-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache \
+    g++ \
+    coreutils
+
+COPY Caddyfile /etc/caddy/Caddyfile
+
+COPY UI_UX ./UI_UX
+COPY Bai_tap ./Bai_tap
+
+ENV PORT=80
+
+CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
