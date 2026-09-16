@@ -83,6 +83,12 @@ nhân của sinh viên.
 
 Project không sử dụng localhost hay XAMPP, thay vào đó sử dụng vercel, nền tảng đám mây cho phép deploy dự án mà không cần lo đến việc quản lý server phức tạp
 
+## Domain của project
+
+```text
+cuong-233332553.vercel.app
+```
+
 
 
 
