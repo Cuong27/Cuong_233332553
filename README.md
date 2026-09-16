@@ -63,7 +63,7 @@ n! = n × (n - 1)!
 ### Bài 4
 
 Liệt kê tất cả các ước số của số nguyên dương `n`.
-tạp
+
 ### Bài 5
 
 Khởi tạo một mảng số nguyên gồm 10 phần tử. Đếm và in ra các phần tử có giá trị âm, giá trị dương.
@@ -79,7 +79,7 @@ Xây dựng class SINHVIEN kế thừa từ class trên và có thêm thuộc t�
 Tạo đối tượng sinh viên và in thông tin ra màn hình giao diện là thông tin cá
 nhân của sinh viên.
 
-### Lưu ý
+# Lưu ý
 
 Project không sử dụng localhost hay XAMPP, thay vào đó sử dụng vercel, nền tảng đám mây cho phép deploy dự án mà không cần lo đến việc quản lý server phức tạp
 
