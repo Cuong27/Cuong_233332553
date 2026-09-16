@@ -3,487 +3,655 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Code Learning</title>
 
-    <title>Tự học lập trình</title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
 <header class="header">
 
-    <div class="logo">
-        <span>&lt;/&gt;</span>
-        Code Learning
-    </div>
+    <a href="index.html" class="logo">
 
+        <div class="logo-icon">
+            &lt;/&gt;
+        </div>
 
-    <nav>
+        <div class="logo-text">
+            <strong>Code</strong>
+            <span>Learning</span>
+        </div>
 
-        <a href="index.html">
-            Trang chủ
+    </a>
+
+    <nav class="nav-menu">
+
+        <a href="index.html" class="nav-item active">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M3 11L12 3L21 11"/>
+                <path d="M5 10V21H19V10"/>
+            </svg>
+
+            <span>Trang chủ</span>
+
         </a>
 
-        <a href="#lessons">
-            Bài tập
+        <a href="#lessons" class="nav-item">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M4 5H20"/>
+                <path d="M4 12H20"/>
+                <path d="M4 19H20"/>
+                <circle cx="7" cy="5" r="1"/>
+                <circle cx="7" cy="12" r="1"/>
+                <circle cx="7" cy="19" r="1"/>
+            </svg>
+
+            <span>Bài tập</span>
+
         </a>
 
-        <a href="#about">
-            Giới thiệu
+        <a href="#about" class="nav-item">
+
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 11V17"/>
+                <path d="M12 7H12.01"/>
+            </svg>
+
+            <span>Giới thiệu</span>
+
         </a>
 
     </nav>
 
+    <div class="online-status">
+        <span class="status-dot"></span>
+        <span>Online</span>
+    </div>
+
 </header>
 
+<main>
 
 <section class="hero">
 
+    <div class="hero-glow hero-glow-one"></div>
+    <div class="hero-glow hero-glow-two"></div>
+
     <div class="hero-content">
 
-
-        <p class="hero-label">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
             SELF STUDY PROGRAMMING
-        </p>
-
+        </div>
 
         <h1>
-
             Tự học
-
-            <span>
-                Lập trình C++
-            </span>
-
+            <span>Lập trình C++</span>
         </h1>
 
-
         <p class="hero-description">
-
-            Website quản lý các bài tập lập trình từ
-            Bài 1 đến Bài 7.
-
-            Mỗi bài tập được viết bằng C++ và lưu
-            riêng trong thư mục Bai_tap.
-
+            Hệ thống bài tập C++ với giao diện Web trực quan.
+            Xem source code, nhập dữ liệu và chạy chương trình
+            trực tiếp ngay trên trình duyệt.
         </p>
 
+        <div class="tech-stack">
+
+            <span>C++</span>
+            <span>PHP</span>
+            <span>Docker</span>
+            <span>Vercel</span>
+
+        </div>
 
         <div class="hero-buttons">
 
-            <a
-                href="#lessons"
-                class="btn primary"
-            >
+            <a href="#lessons" class="btn btn-primary">
 
-                Xem bài tập
+                <svg viewBox="0 0 24 24">
+                    <path d="M8 5L17 12L8 19Z"/>
+                </svg>
 
-            </a>
-
-
-            <a
-                href="bai.php?bai=1"
-                class="btn secondary"
-            >
-
-                Bắt đầu với Bài 1 →
+                Bắt đầu học
 
             </a>
+
+            <a href="bai.php?bai=1" class="btn btn-secondary">
+                Bài đầu tiên
+                <span>→</span>
+            </a>
+
+        </div>
+
+        <div class="hero-stats">
+
+            <div class="hero-stat">
+                <strong>07</strong>
+                <span>Bài tập</span>
+            </div>
+
+            <div class="hero-divider"></div>
+
+            <div class="hero-stat">
+                <strong>C++</strong>
+                <span>Ngôn ngữ</span>
+            </div>
+
+            <div class="hero-divider"></div>
+
+            <div class="hero-stat">
+                <strong>Web</strong>
+                <span>Runner</span>
+            </div>
 
         </div>
 
     </div>
 
+    <div class="terminal-card">
 
-    <div class="code-window">
+        <div class="terminal-top">
 
-
-        <div class="code-window-header">
-
-            <div class="dots">
-
+            <div class="terminal-dots">
                 <span></span>
                 <span></span>
                 <span></span>
-
             </div>
 
-            <p>main.cpp</p>
+            <div class="terminal-title">
+                Bai_1.cpp
+            </div>
+
+            <div class="terminal-language">
+                C++
+            </div>
 
         </div>
 
+        <div class="terminal-body">
 
-        <pre><code><span class="code-purple">#include</span> &lt;iostream&gt;
+            <div class="code-line">
+                <span class="line-number">1</span>
+                <span>
+                    <span class="syntax-purple">#include</span>
+                    <span class="syntax-blue">&lt;iostream&gt;</span>
+                </span>
+            </div>
 
-<span class="code-purple">using namespace</span> std;
+            <div class="code-line">
+                <span class="line-number">2</span>
+                <span></span>
+            </div>
 
+            <div class="code-line">
+                <span class="line-number">3</span>
+                <span>
+                    <span class="syntax-purple">using namespace</span>
+                    std;
+                </span>
+            </div>
 
-<span class="code-blue">int</span> main()
-{
+            <div class="code-line">
+                <span class="line-number">4</span>
+                <span></span>
+            </div>
 
-    cout &lt;&lt; <span class="code-green">"Hello World!"</span>;
+            <div class="code-line">
+                <span class="line-number">5</span>
+                <span>
+                    <span class="syntax-blue">int</span>
+                    main()
+                </span>
+            </div>
 
-    <span class="code-purple">return</span> 0;
+            <div class="code-line">
+                <span class="line-number">6</span>
+                <span>{</span>
+            </div>
 
-}</code></pre>
+            <div class="code-line">
+                <span class="line-number">7</span>
+                <span class="code-indent">
+                    cout &lt;&lt;
+                    <span class="syntax-green">"Hello World!"</span>;
+                </span>
+            </div>
 
+            <div class="code-line">
+                <span class="line-number">8</span>
+                <span></span>
+            </div>
+
+            <div class="code-line">
+                <span class="line-number">9</span>
+                <span class="code-indent">
+                    <span class="syntax-purple">return</span>
+                    0;
+                </span>
+            </div>
+
+            <div class="code-line">
+                <span class="line-number">10</span>
+                <span>}</span>
+            </div>
+
+        </div>
+
+        <div class="terminal-bottom">
+
+            <span class="terminal-success-dot"></span>
+
+            <span>Ready to compile</span>
+
+        </div>
 
     </div>
 
 </section>
 
-<section
-    class="lesson-section"
-    id="lessons"
->
+<section class="lesson-section" id="lessons">
 
+    <div class="section-heading">
 
-    <div class="section-title">
+        <div>
 
-        <p>
-            EXERCISES
-        </p>
+            <div class="section-label">
+                <span></span>
+                EXERCISES
+            </div>
 
-        <h2>
-            Danh sách bài tập
-        </h2>
+            <h2>Danh sách bài tập</h2>
 
-        <span>
+            <p>
+                Chọn một bài tập để xem source code,
+                nhập input và chạy chương trình C++.
+            </p>
 
-            Chọn một bài để xem source code C++
-            tương ứng.
+        </div>
 
-        </span>
+        <div class="exercise-count">
+            <strong>7</strong>
+            <span>Exercises</span>
+        </div>
 
     </div>
-
-
 
     <div class="lesson-grid">
 
+        <a href="bai.php?bai=1" class="lesson-card">
 
-        <a
-            href="bai.php?bai=1"
-            class="lesson-card"
-        >
+            <div class="card-top">
 
-            <div class="lesson-number">
-                01
+                <div class="card-icon">
+                    &lt;/&gt;
+                </div>
+
+                <div class="card-number">
+                    01
+                </div>
+
             </div>
 
-            <div class="lesson-icon">
-                C++
+            <div class="card-category">
+                BASIC C++
             </div>
 
-            <p class="lesson-label">
-                BÀI TẬP
+            <h3>Bài 1</h3>
+
+            <p>
+                Nhập số liên tục cho đến khi nhập số 0 thì dừng.
             </p>
 
-            <h3>
-                Bài 1
-            </h3>
+            <div class="card-bottom">
 
-            <p class="lesson-description">
+                <span>Xem bài</span>
 
-                Bài tập lập trình C++ số 1.
+                <div class="card-arrow">
+                    →
+                </div>
 
-            </p>
-
-            <span class="open">
-                Xem bài →
-            </span>
+            </div>
 
         </a>
 
+        <a href="bai.php?bai=2" class="lesson-card">
 
+            <div class="card-top">
 
-        <!-- BÀI 2 -->
+                <div class="card-icon">
+                    &lt;/&gt;
+                </div>
 
-        <a
-            href="bai.php?bai=2"
-            class="lesson-card"
-        >
+                <div class="card-number">
+                    02
+                </div>
 
-            <div class="lesson-number">
-                02
             </div>
 
-            <div class="lesson-icon">
-                C++
+            <div class="card-category">
+                FUNCTION
             </div>
 
-            <p class="lesson-label">
-                BÀI TẬP
+            <h3>Bài 2</h3>
+
+            <p>
+                Kiểm tra một số có phải là số hoàn hảo hay không.
             </p>
 
-            <h3>
-                Bài 2
-            </h3>
+            <div class="card-bottom">
 
-            <p class="lesson-description">
+                <span>Xem bài</span>
 
-                Bài tập lập trình C++ số 2.
+                <div class="card-arrow">
+                    →
+                </div>
 
-            </p>
-
-            <span class="open">
-                Xem bài →
-            </span>
+            </div>
 
         </a>
 
+        <a href="bai.php?bai=3" class="lesson-card">
 
+            <div class="card-top">
 
-        <!-- BÀI 3 -->
+                <div class="card-icon">
+                    &lt;/&gt;
+                </div>
 
-        <a
-            href="bai.php?bai=3"
-            class="lesson-card"
-        >
+                <div class="card-number">
+                    03
+                </div>
 
-            <div class="lesson-number">
-                03
             </div>
 
-            <div class="lesson-icon">
-                C++
+            <div class="card-category">
+                FUNCTION
             </div>
 
-            <p class="lesson-label">
-                BÀI TẬP
+            <h3>Bài 3</h3>
+
+            <p>
+                Viết hàm tính giá trị giai thừa của số nguyên n.
             </p>
 
-            <h3>
-                Bài 3
-            </h3>
+            <div class="card-bottom">
 
-            <p class="lesson-description">
+                <span>Xem bài</span>
 
-                Bài tập lập trình C++ số 3.
+                <div class="card-arrow">
+                    →
+                </div>
 
-            </p>
-
-            <span class="open">
-                Xem bài →
-            </span>
+            </div>
 
         </a>
 
+        <a href="bai.php?bai=4" class="lesson-card">
 
+            <div class="card-top">
 
-        <!-- BÀI 4 -->
+                <div class="card-icon">
+                    &lt;/&gt;
+                </div>
 
-        <a
-            href="bai.php?bai=4"
-            class="lesson-card"
-        >
+                <div class="card-number">
+                    04
+                </div>
 
-            <div class="lesson-number">
-                04
             </div>
 
-            <div class="lesson-icon">
-                C++
+            <div class="card-category">
+                LOOP
             </div>
 
-            <p class="lesson-label">
-                BÀI TẬP
+            <h3>Bài 4</h3>
+
+            <p>
+                Liệt kê tất cả các ước số của số nguyên dương n.
             </p>
 
-            <h3>
-                Bài 4
-            </h3>
+            <div class="card-bottom">
 
-            <p class="lesson-description">
+                <span>Xem bài</span>
 
-                Bài tập lập trình C++ số 4.
+                <div class="card-arrow">
+                    →
+                </div>
 
-            </p>
-
-            <span class="open">
-                Xem bài →
-            </span>
+            </div>
 
         </a>
 
+        <a href="bai.php?bai=5" class="lesson-card">
 
+            <div class="card-top">
 
-        <!-- BÀI 5 -->
+                <div class="card-icon">
+                    &lt;/&gt;
+                </div>
 
-        <a
-            href="bai.php?bai=5"
-            class="lesson-card"
-        >
+                <div class="card-number">
+                    05
+                </div>
 
-            <div class="lesson-number">
-                05
             </div>
 
-            <div class="lesson-icon">
+            <div class="card-category">
                 C++
             </div>
 
-            <p class="lesson-label">
-                BÀI TẬP
+            <h3>Bài 5</h3>
+
+            <p>
+                Bài tập thực hành lập trình C++ số 5.
             </p>
 
-            <h3>
-                Bài 5
-            </h3>
+            <div class="card-bottom">
 
-            <p class="lesson-description">
+                <span>Xem bài</span>
 
-                Bài tập lập trình C++ số 5.
+                <div class="card-arrow">
+                    →
+                </div>
 
-            </p>
-
-            <span class="open">
-                Xem bài →
-            </span>
+            </div>
 
         </a>
 
+        <a href="bai.php?bai=6" class="lesson-card">
 
+            <div class="card-top">
 
-        <!-- BÀI 6 -->
+                <div class="card-icon">
+                    &lt;/&gt;
+                </div>
 
-        <a
-            href="bai.php?bai=6"
-            class="lesson-card"
-        >
+                <div class="card-number">
+                    06
+                </div>
 
-            <div class="lesson-number">
-                06
             </div>
 
-            <div class="lesson-icon">
+            <div class="card-category">
                 C++
             </div>
 
-            <p class="lesson-label">
-                BÀI TẬP
+            <h3>Bài 6</h3>
+
+            <p>
+                Bài tập thực hành lập trình C++ số 6.
             </p>
 
-            <h3>
-                Bài 6
-            </h3>
+            <div class="card-bottom">
 
-            <p class="lesson-description">
+                <span>Xem bài</span>
 
-                Bài tập lập trình C++ số 6.
+                <div class="card-arrow">
+                    →
+                </div>
 
-            </p>
-
-            <span class="open">
-                Xem bài →
-            </span>
+            </div>
 
         </a>
 
+        <a href="bai.php?bai=7" class="lesson-card">
 
+            <div class="card-top">
 
-        <!-- BÀI 7 -->
+                <div class="card-icon">
+                    &lt;/&gt;
+                </div>
 
-        <a
-            href="bai.php?bai=7"
-            class="lesson-card"
-        >
+                <div class="card-number">
+                    07
+                </div>
 
-            <div class="lesson-number">
-                07
             </div>
 
-            <div class="lesson-icon">
+            <div class="card-category">
                 C++
             </div>
 
-            <p class="lesson-label">
-                BÀI TẬP
+            <h3>Bài 7</h3>
+
+            <p>
+                Bài tập thực hành lập trình C++ số 7.
             </p>
 
-            <h3>
-                Bài 7
-            </h3>
+            <div class="card-bottom">
 
-            <p class="lesson-description">
+                <span>Xem bài</span>
 
-                Bài tập lập trình C++ số 7.
+                <div class="card-arrow">
+                    →
+                </div>
 
-            </p>
-
-            <span class="open">
-                Xem bài →
-            </span>
+            </div>
 
         </a>
-
 
     </div>
 
 </section>
 
+<section class="about-section" id="about">
 
+    <div class="about-panel">
 
-<!-- =======================
-     ABOUT
-======================= -->
+        <div class="about-content">
 
-<section
-    class="about"
-    id="about"
->
+            <div class="section-label">
+                <span></span>
+                ABOUT PROJECT
+            </div>
 
-    <p>
-        ABOUT PROJECT
-    </p>
+            <h2>Học C++ theo cách trực quan hơn</h2>
 
-    <h2>
-        Tự học lập trình C++
-    </h2>
+            <p>
+                Project kết hợp C++, PHP và Docker để tạo môi trường
+                học lập trình đơn giản trên trình duyệt. Mỗi bài tập
+                có thể xem source, nhập dữ liệu và kiểm tra kết quả trực tiếp.
+            </p>
 
-    <span>
+            <a href="#lessons" class="about-link">
+                Khám phá bài tập
+                <span>→</span>
+            </a>
 
-        Website được sử dụng để quản lý và hiển thị
-        các bài tập C++ trong quá trình học lập trình.
+        </div>
 
-    </span>
+        <div class="about-features">
 
-</section>
+            <div class="feature-card">
 
+                <div class="feature-icon">
+                    07
+                </div>
 
+                <div>
+                    <strong>7 bài tập</strong>
+                    <span>Từ cơ bản đến thực hành</span>
+                </div>
 
-<!-- =======================
-     FOOTER
-======================= -->
+            </div>
 
-<footer>
+            <div class="feature-card">
 
-    <div class="footer-logo">
+                <div class="feature-icon">
+                    C++
+                </div>
 
-        &lt;/&gt; Code Learning
+                <div>
+                    <strong>C++ Runner</strong>
+                    <span>Compile bằng g++</span>
+                </div>
+
+            </div>
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    &gt;_
+                </div>
+
+                <div>
+                    <strong>Input / Output</strong>
+                    <span>Chạy trực tiếp trên Web</span>
+                </div>
+
+            </div>
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ☁
+                </div>
+
+                <div>
+                    <strong>Cloud Deploy</strong>
+                    <span>Docker và Vercel</span>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
+</section>
+
+</main>
+
+<footer class="footer">
+
+    <a href="index.html" class="footer-brand">
+
+        <div class="footer-logo-icon">
+            &lt;/&gt;
+        </div>
+
+        <div>
+            <strong>Code Learning</strong>
+            <span>C++ Programming Exercises</span>
+        </div>
+
+    </a>
 
     <p>
-
-        Tự học lập trình © 2026
-
+        © 2026 Code Learning
     </p>
+
+    <a href="#" class="back-top">
+        ↑
+    </a>
 
 </footer>
-
 
 </body>
 

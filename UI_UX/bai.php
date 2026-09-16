@@ -43,7 +43,7 @@ function runProcess(array $command, string $input = ''): array
         return [
             1,
             '',
-            'Không thể chạy tiến trình.'
+            'Không thể chạy chương trình.'
         ];
     }
 
@@ -57,7 +57,6 @@ function runProcess(array $command, string $input = ''): array
     $stderr = '';
 
     $maxOutput = 1024 * 1024;
-
     $outputTooLarge = false;
 
     while (true) {
@@ -69,10 +68,10 @@ function runProcess(array $command, string $input = ''): array
 
         if ($outChunk !== false && $outChunk !== '') {
 
-            if (strlen($stdout) < $maxOutput) {
+            $remaining =
+                $maxOutput - strlen($stdout);
 
-                $remaining =
-                    $maxOutput - strlen($stdout);
+            if ($remaining > 0) {
 
                 $stdout .= substr(
                     $outChunk,
@@ -85,14 +84,15 @@ function runProcess(array $command, string $input = ''): array
                 $outputTooLarge = true;
 
             }
+
         }
 
         if ($errChunk !== false && $errChunk !== '') {
 
-            if (strlen($stderr) < $maxOutput) {
+            $remaining =
+                $maxOutput - strlen($stderr);
 
-                $remaining =
-                    $maxOutput - strlen($stderr);
+            if ($remaining > 0) {
 
                 $stderr .= substr(
                     $errChunk,
@@ -105,6 +105,7 @@ function runProcess(array $command, string $input = ''): array
                 $outputTooLarge = true;
 
             }
+
         }
 
         if (!$status['running']) {
@@ -112,54 +113,69 @@ function runProcess(array $command, string $input = ''): array
         }
 
         usleep(10000);
+
     }
 
     while (!feof($pipes[1])) {
 
-        $chunk =
-            fread(
-                $pipes[1],
-                8192
-            );
+        $chunk = fread(
+            $pipes[1],
+            8192
+        );
 
-        if (
-            $chunk !== false
-            && strlen($stdout) < $maxOutput
-        ) {
+        if ($chunk === false || $chunk === '') {
+            break;
+        }
 
-            $remaining =
-                $maxOutput - strlen($stdout);
+        $remaining =
+            $maxOutput - strlen($stdout);
+
+        if ($remaining > 0) {
 
             $stdout .= substr(
                 $chunk,
                 0,
                 $remaining
             );
+
+        } else {
+
+            $outputTooLarge = true;
+            break;
+
         }
+
     }
 
     while (!feof($pipes[2])) {
 
-        $chunk =
-            fread(
-                $pipes[2],
-                8192
-            );
+        $chunk = fread(
+            $pipes[2],
+            8192
+        );
 
-        if (
-            $chunk !== false
-            && strlen($stderr) < $maxOutput
-        ) {
+        if ($chunk === false || $chunk === '') {
+            break;
+        }
 
-            $remaining =
-                $maxOutput - strlen($stderr);
+        $remaining =
+            $maxOutput - strlen($stderr);
+
+        if ($remaining > 0) {
 
             $stderr .= substr(
                 $chunk,
                 0,
                 $remaining
             );
+
+        } else {
+
+            $outputTooLarge = true;
+            break;
+
         }
+
     }
 
     fclose($pipes[1]);
@@ -172,6 +188,7 @@ function runProcess(array $command, string $input = ''): array
 
         $stdout .=
             "\n\n[Output đã bị giới hạn vì chương trình in quá nhiều dữ liệu.]";
+
     }
 
     return [
@@ -184,6 +201,7 @@ function runProcess(array $command, string $input = ''): array
 $inputData = '';
 $outputData = '';
 $hasRun = false;
+$runSuccess = false;
 
 if (
     $_SERVER['REQUEST_METHOD'] === 'POST'
@@ -196,12 +214,14 @@ if (
         $_POST['input_data'] ?? '';
 
     if (strlen($inputData) > 10000) {
+
         $inputData =
             substr(
                 $inputData,
                 0,
                 10000
             );
+
     }
 
     if (!$sourceExists) {
@@ -283,6 +303,7 @@ if (
 
                     $outputData .=
                         $runError;
+
                 }
 
                 if ($runCode === 124) {
@@ -300,6 +321,10 @@ if (
                         . $runCode
                         . ".";
 
+                } else {
+
+                    $runSuccess = true;
+
                 }
 
                 if (
@@ -309,6 +334,7 @@ if (
 
                     $outputData =
                         "Program finished without output.";
+
                 }
 
             }
@@ -339,7 +365,7 @@ if (
     >
 
     <title>
-        Bài <?php echo $bai; ?> | C++
+        Bài <?php echo $bai; ?> | Code Learning
     </title>
 
     <link
@@ -353,35 +379,77 @@ if (
 
 <header class="header">
 
-    <div class="logo">
+    <a href="index.html" class="logo">
 
-        <span>
+        <div class="logo-icon">
             &lt;/&gt;
-        </span>
+        </div>
 
-        Code Learning
+        <div class="logo-text">
+            <strong>Code</strong>
+            <span>Learning</span>
+        </div>
 
-    </div>
+    </a>
 
-    <nav>
+    <nav class="nav-menu">
 
-        <a href="index.html">
-            Trang chủ
+        <a
+            href="index.html"
+            class="nav-item"
+        >
+
+            <svg viewBox="0 0 24 24">
+                <path d="M3 11L12 3L21 11"/>
+                <path d="M5 10V21H19V10"/>
+            </svg>
+
+            <span>Trang chủ</span>
+
         </a>
 
-        <a href="index.html#lessons">
-            Bài tập
+        <a
+            href="index.html#lessons"
+            class="nav-item active"
+        >
+
+            <svg viewBox="0 0 24 24">
+                <path d="M4 5H20"/>
+                <path d="M4 12H20"/>
+                <path d="M4 19H20"/>
+            </svg>
+
+            <span>Bài tập</span>
+
         </a>
 
-        <a href="index.html#about">
-            Giới thiệu
+        <a
+            href="index.html#about"
+            class="nav-item"
+        >
+
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 11V17"/>
+                <path d="M12 7H12.01"/>
+            </svg>
+
+            <span>Giới thiệu</span>
+
         </a>
 
     </nav>
 
+    <div class="online-status">
+        <span class="status-dot"></span>
+        <span>Online</span>
+    </div>
+
 </header>
 
 <main class="exercise-page">
+
+    <div class="exercise-page-glow"></div>
 
     <div class="breadcrumb">
 
@@ -389,59 +457,70 @@ if (
             Trang chủ
         </a>
 
-        <span>
-            ›
-        </span>
+        <span>/</span>
 
-        <span>
+        <a href="index.html#lessons">
+            Bài tập
+        </a>
+
+        <span>/</span>
+
+        <strong>
             Bài <?php echo $bai; ?>
-        </span>
+        </strong>
 
     </div>
 
-    <div class="exercise-container">
+    <div class="exercise-layout">
 
-        <div class="exercise-header">
+        <section class="exercise-main">
 
-            <div>
+            <div class="exercise-heading">
 
-                <p class="exercise-label">
-                    C++ EXERCISE
-                </p>
+                <div>
 
-                <h1>
-                    Bài <?php echo $bai; ?>
-                </h1>
+                    <div class="section-label">
+                        <span></span>
+                        C++ EXERCISE
+                    </div>
 
-                <p class="exercise-path">
-                    Bai_tap/Bai_<?php echo $bai; ?>.cpp
-                </p>
+                    <h1>
+                        Bài <?php echo $bai; ?>
+                    </h1>
 
-            </div>
+                    <p>
+                        Bai_tap/Bai_<?php echo $bai; ?>.cpp
+                    </p>
 
-            <div class="cpp-badge">
-                C++
-            </div>
-
-        </div>
-
-        <div class="source-window">
-
-            <div class="source-header">
-
-                <div class="dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
                 </div>
 
-                <p>
-                    Bai_<?php echo $bai; ?>.cpp
-                </p>
+                <div class="language-badge">
+                    C++
+                </div>
 
             </div>
 
-            <pre><code><?php
+            <div class="source-window">
+
+                <div class="source-header">
+
+                    <div class="terminal-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <div class="source-filename">
+                        Bai_<?php echo $bai; ?>.cpp
+                    </div>
+
+                    <div class="source-type">
+                        Source
+                    </div>
+
+                </div>
+
+                <pre><code><?php
 echo htmlspecialchars(
     $sourceCode,
     ENT_QUOTES,
@@ -449,44 +528,57 @@ echo htmlspecialchars(
 );
 ?></code></pre>
 
-        </div>
+            </div>
 
-        <div class="runner">
+            <div class="runner-card">
 
-            <div class="runner-title">
+                <div class="runner-heading">
 
-                <div>
+                    <div>
 
-                    <p class="exercise-label">
-                        PROGRAM INPUT
-                    </p>
+                        <div class="section-label">
+                            <span></span>
+                            PROGRAM RUNNER
+                        </div>
 
-                    <h2>
-                        Chạy chương trình
-                    </h2>
+                        <h2>
+                            Chạy chương trình
+                        </h2>
+
+                    </div>
+
+                    <div class="runner-status">
+
+                        <span></span>
+
+                        Ready
+
+                    </div>
 
                 </div>
 
-                <span class="terminal-badge">
-                    Terminal
-                </span>
+                <form
+                    method="POST"
+                    action="bai.php?bai=<?php echo $bai; ?>"
+                >
 
-            </div>
+                    <div class="input-heading">
 
-            <form
-                method="POST"
-                action="bai.php?bai=<?php echo $bai; ?>"
-            >
+                        <label for="input_data">
+                            Input
+                        </label>
 
-                <label for="input_data">
-                    Input
-                </label>
+                        <span>
+                            stdin
+                        </span>
 
-                <textarea
-                    id="input_data"
-                    name="input_data"
-                    placeholder="Nhập input cho chương trình..."
-                ><?php
+                    </div>
+
+                    <textarea
+                        id="input_data"
+                        name="input_data"
+                        placeholder="Nhập input cho chương trình..."
+                    ><?php
 echo htmlspecialchars(
     $inputData,
     ENT_QUOTES,
@@ -494,36 +586,64 @@ echo htmlspecialchars(
 );
 ?></textarea>
 
-                <button
-                    type="submit"
-                    name="run"
-                    value="1"
-                    class="run-button"
-                >
-                    ▶ Run C++
-                </button>
+                    <button
+                        type="submit"
+                        name="run"
+                        value="1"
+                        class="run-button"
+                    >
 
-            </form>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5L18 12L8 19Z"/>
+                        </svg>
 
-            <div class="output-container">
+                        Run C++
 
-                <div class="output-header">
+                    </button>
 
-                    <span>
-                        Output
-                    </span>
+                </form>
 
-                    <?php if ($hasRun): ?>
+                <div class="output-window">
 
-                        <span class="run-status">
-                            Executed
-                        </span>
+                    <div class="output-top">
 
-                    <?php endif; ?>
+                        <div>
 
-                </div>
+                            <span class="output-symbol">
+                                &gt;_
+                            </span>
 
-                <pre class="program-output"><?php
+                            Output
+
+                        </div>
+
+                        <?php if ($hasRun): ?>
+
+                            <?php if ($runSuccess): ?>
+
+                                <span class="output-success">
+                                    Success
+                                </span>
+
+                            <?php else: ?>
+
+                                <span class="output-error">
+                                    Error
+                                </span>
+
+                            <?php endif; ?>
+
+                        <?php else: ?>
+
+                            <span class="output-idle">
+                                Waiting
+                            </span>
+
+                        <?php endif; ?>
+
+                    </div>
+
+                    <pre><?php
 
 if ($hasRun) {
 
@@ -541,67 +661,146 @@ if ($hasRun) {
 
 ?></pre>
 
+                </div>
+
             </div>
 
-        </div>
+            <div class="exercise-navigation">
 
-        <div class="exercise-navigation">
+                <?php if ($bai > 1): ?>
 
-            <?php if ($bai > 1): ?>
+                    <a
+                        class="nav-btn"
+                        href="bai.php?bai=<?php echo $bai - 1; ?>"
+                    >
+                        <span>←</span>
+                        Bài <?php echo $bai - 1; ?>
+                    </a>
 
-                <a
-                    class="nav-btn"
-                    href="bai.php?bai=<?php echo $bai - 1; ?>"
-                >
-                    ← Bài <?php echo $bai - 1; ?>
-                </a>
+                <?php else: ?>
 
-            <?php else: ?>
+                    <a
+                        class="nav-btn"
+                        href="index.html"
+                    >
+                        <span>←</span>
+                        Trang chủ
+                    </a>
 
-                <a
-                    class="nav-btn"
-                    href="index.html"
-                >
-                    ← Trang chủ
-                </a>
+                <?php endif; ?>
 
-            <?php endif; ?>
+                <?php if ($bai < 7): ?>
 
-            <?php if ($bai < 7): ?>
+                    <a
+                        class="nav-btn nav-next"
+                        href="bai.php?bai=<?php echo $bai + 1; ?>"
+                    >
+                        Bài <?php echo $bai + 1; ?>
+                        <span>→</span>
+                    </a>
 
-                <a
-                    class="nav-btn nav-next"
-                    href="bai.php?bai=<?php echo $bai + 1; ?>"
-                >
-                    Bài <?php echo $bai + 1; ?> →
-                </a>
+                <?php else: ?>
 
-            <?php else: ?>
+                    <a
+                        class="nav-btn nav-next"
+                        href="index.html"
+                    >
+                        Hoàn thành
+                        <span>✓</span>
+                    </a>
 
-                <a
-                    class="nav-btn nav-next"
-                    href="index.html"
-                >
-                    Hoàn thành ✓
-                </a>
+                <?php endif; ?>
 
-            <?php endif; ?>
+            </div>
 
-        </div>
+        </section>
+
+        <aside class="exercise-sidebar">
+
+            <div class="sidebar-card">
+
+                <div class="sidebar-title">
+                    Bài tập
+                </div>
+
+                <?php for ($i = 1; $i <= 7; $i++): ?>
+
+                    <a
+                        href="bai.php?bai=<?php echo $i; ?>"
+                        class="sidebar-lesson <?php echo $bai === $i ? 'selected' : ''; ?>"
+                    >
+
+                        <span class="sidebar-number">
+                            <?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?>
+                        </span>
+
+                        <span>
+                            Bài <?php echo $i; ?>
+                        </span>
+
+                        <span class="sidebar-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+                <?php endfor; ?>
+
+            </div>
+
+            <div class="sidebar-info">
+
+                <div class="sidebar-info-icon">
+                    &lt;/&gt;
+                </div>
+
+                <strong>
+                    C++ Runner
+                </strong>
+
+                <p>
+                    Source được compile bằng g++ và chạy
+                    trực tiếp trong container.
+                </p>
+
+                <div class="sidebar-tech">
+
+                    <span>g++</span>
+                    <span>Docker</span>
+                    <span>PHP</span>
+
+                </div>
+
+            </div>
+
+        </aside>
 
     </div>
 
 </main>
 
-<footer>
+<footer class="footer">
 
-    <div class="footer-logo">
-        &lt;/&gt; Code Learning
-    </div>
+    <a href="index.html" class="footer-brand">
+
+        <div class="footer-logo-icon">
+            &lt;/&gt;
+        </div>
+
+        <div>
+            <strong>Code Learning</strong>
+            <span>C++ Programming Exercises</span>
+        </div>
+
+    </a>
 
     <p>
-        Tự học lập trình © 2026
+        © 2026 Code Learning
     </p>
+
+    <a href="#" class="back-top">
+        ↑
+    </a>
 
 </footer>
 
