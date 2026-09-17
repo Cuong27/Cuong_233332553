@@ -873,6 +873,12 @@ footer {
 
 }
 
+.footer-class {
+    margin-top: 18px;
+    font-size: 18px;
+    opacity: 0.6;
+}
+
 @media (max-width: 1000px) {
 
     .hero {
