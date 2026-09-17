@@ -488,7 +488,7 @@ if ($hasRun) {
 <footer>
 
     <div class="footer-logo">
-        &lt;/&gt; Code Learning
+        &lt;/&gt;Code Learning
     </div>
 
     <p>
